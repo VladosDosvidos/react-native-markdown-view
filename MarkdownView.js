@@ -78,6 +78,7 @@ class MarkdownView extends Component {
   props: {
     style?: Object,
     rules?: Rules,
+    customImageRender?: ()=> void,
     onLinkPress?: (string) => void,
     styles?: Styles,
     children: string,
@@ -93,7 +94,7 @@ class MarkdownView extends Component {
 
     const ast = SimpleMarkdown.parserFor(mergedRules)(markdown, {inline: false})
     const render = SimpleMarkdown.reactFor(SimpleMarkdown.ruleOutput(mergedRules, 'react'))
-    const initialRenderState = {onLinkPress: onLinkPress}
+    const initialRenderState = {onLinkPress: onLinkPress, customImageRender: this.props.customImageRender}
 
     return (
       <View style={this.props.style}>
