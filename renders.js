@@ -29,6 +29,12 @@ import type {
 
 function renderImage(node: ImageNode, output: OutputFunction, state: RenderState, styles: RenderStyles) {
   const {imageWrapper: wrapperStyle, image: imageStyle} = styles
+  const customImageRender = state?.customImageRender
+
+  if (customImageRender) {
+    return customImageRender(node, output, state, styles)
+  }
+  
   return (
     <View key={state.key} style={node.width || node.height ? [wrapperStyle, paddedSize(node, wrapperStyle)] : wrapperStyle}>
       <Image source={{uri: node.target}} style={imageStyle}/>
